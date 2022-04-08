@@ -19,10 +19,10 @@ interface CarDao {
     fun getCarById(id: Long): Car?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = Car::class)
-    fun addCar(car: Car)
+    suspend fun addCar(car: Car)
 
     @Delete(entity = Car::class)
-    fun delCar(car: Car)
+    suspend fun delCar(car: Car)
 
     @Query(
         "SELECT * FROM car WHERE availability = :bool"
