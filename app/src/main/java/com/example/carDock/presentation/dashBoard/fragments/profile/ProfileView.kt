@@ -9,12 +9,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.carDock.presentation.dashBoard.commponents.core.pageHeader
+import com.example.carDock.presentation.dashBoard.commponents.core.PageHeader
 
 @Composable
 fun profileView() {
     Column(modifier = Modifier.fillMaxWidth()) {
-        pageHeader("Profile")
+        PageHeader("Profile")
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
             items(100) {
                 Text(text = "$it")

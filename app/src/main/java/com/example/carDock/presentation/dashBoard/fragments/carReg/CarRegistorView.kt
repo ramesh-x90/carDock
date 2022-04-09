@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.example.carDock.domain.model.Car
 import com.example.carDock.presentation.core.compponents.MyToast
-import com.example.carDock.presentation.dashBoard.commponents.core.pageHeader
+import com.example.carDock.presentation.dashBoard.commponents.core.PageHeader
 import com.example.carDock.presentation.dashBoard.fragments.carReg.commponents.FilteredTextField
 import com.example.carDock.presentation.dashBoard.fragments.carReg.commponents.RegFormTextFiled
 import com.example.carDock.ui.theme.MyColors
@@ -33,10 +33,11 @@ import com.example.carDock.ui.theme.MyColors
 @Composable
 fun CarRegView() {
 
-    val viewModel = com.example.carDock.AppModule.getViewModelServiceLocator().getCarRegScreenViewModel()
+    val viewModel =
+        com.example.carDock.AppModule.getViewModelServiceLocator().getCarRegScreenViewModel()
 
     Column(modifier = Modifier.fillMaxWidth()) {
-        pageHeader("Register a Car")
+        PageHeader("Register a Car")
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
@@ -54,7 +55,8 @@ fun CarRegView() {
                             CarRegEvents.OnBrandSelect(it)
                         )
                         it
-                    }
+                    },
+                    isError = viewModel.formErrorState.value.brandError
                 ) {
                     viewModel.onEvent(
                         CarRegEvents.OnBrandChange(it)
@@ -62,8 +64,6 @@ fun CarRegView() {
                 }
 
             }
-
-
 
 
 
@@ -78,7 +78,8 @@ fun CarRegView() {
                             CarRegEvents.OnModelSelect(it)
                         )
                         it
-                    }
+                    },
+                    isError = viewModel.formErrorState.value.modelError
                 ) {
                     viewModel.onEvent(
                         CarRegEvents.OnModelChange(it)
@@ -101,7 +102,7 @@ fun CarRegView() {
                         }
                     },
                     label = label,
-                    error = false,
+                    error = viewModel.formErrorState.value.priceError,
                     onValueChange =
                     {
 
@@ -126,7 +127,7 @@ fun CarRegView() {
                 RegFormTextFiled(
                     value = viewModel.carRegFormState.value.chassis_no,
                     label = label,
-                    error = false,
+                    error = viewModel.formErrorState.value.chassisNoError,
                     onValueChange =
                     {
                         viewModel.onEvent(
@@ -148,7 +149,7 @@ fun CarRegView() {
                 RegFormTextFiled(
                     value = viewModel.carRegFormState.value.engine_no,
                     label = label,
-                    error = false,
+                    error = viewModel.formErrorState.value.engineNoError,
                     onValueChange =
                     {
                         viewModel.onEvent(
@@ -210,15 +211,21 @@ fun CarRegView() {
                             )
 
                         }
+
                     }
 
                 }
 
-
             }
+
+
+
             item {
                 Divider()
             }
+
+
+
 
             item {
                 LazyRow(modifier = Modifier.height(60.dp)) {
@@ -280,7 +287,8 @@ fun CarRegView() {
                         )
                     )
 
-                }, modifier = Modifier.padding(all = 10.dp)) {
+                }, modifier = Modifier.padding(all = 10.dp)
+                ) {
                     Text(text = "Submit")
                 }
             }

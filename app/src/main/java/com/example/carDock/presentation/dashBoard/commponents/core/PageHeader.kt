@@ -17,7 +17,7 @@ import com.example.carDock.ui.theme.MyColors
 
 
 @Composable
-fun pageHeader(header: String, bgColor: Color = MyColors.primaryLight) {
+fun PageHeader(header: String, bgColor: Color = MyColors.primaryLight) {
     Box(
         modifier = Modifier
             .fillMaxWidth()

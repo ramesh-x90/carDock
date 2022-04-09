@@ -2,6 +2,7 @@ package com.example.carDock.serviceLocators
 
 
 import com.example.carDock.presentation.dashBoard.fragments.carList.CarListViewModel
+import com.example.carDock.presentation.dashBoard.fragments.carDetailsPage.CarDetailsViewModelImpl
 import com.example.carDock.presentation.dashBoard.fragments.carReg.CarRegViewModelImpl
 import com.example.carDock.presentation.login.LoginViewModel
 import com.example.carDock.presentation.login.LoginViewModelImpl
@@ -15,6 +16,7 @@ object ViewModelsServiceLocator {
     private var carRegScreenViewModel: CarRegViewModelImpl? = null
     private var userRegScreenViewModel: UserRegistrationViewModel? = null
     private var userLoginScreenViewModel: LoginViewModel? = null
+    private var carDetailsScreenViewModel: CarDetailsViewModelImpl? = null
 
     fun getCarListScreenViewModel() = carListViewModel ?: CarListViewModel().also {
         carListViewModel = it
@@ -32,6 +34,11 @@ object ViewModelsServiceLocator {
         userLoginScreenViewModel ?: LoginViewModelImpl().also {
             userLoginScreenViewModel = it
         }
+
+    fun getCarDetailsViewModel() =
+        carDetailsScreenViewModel ?: CarDetailsViewModelImpl().also {
+            carDetailsScreenViewModel = it
+    }
 
 
     fun resetViewModels() {

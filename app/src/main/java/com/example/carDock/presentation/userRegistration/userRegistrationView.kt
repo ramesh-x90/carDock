@@ -1,10 +1,8 @@
 package com.example.carDock.presentation.userRegistration
 
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -14,6 +12,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.carDock.presentation.core.compponents.MyToast
+import com.example.carDock.presentation.dashBoard.commponents.core.PageHeader
 import com.example.carDock.presentation.userRegistration.commponents.UserRegPwdField
 import com.example.carDock.presentation.userRegistration.commponents.UserRegTextField
 import com.example.carDock.ui.theme.MyColors
@@ -27,7 +26,7 @@ fun UserRegistrationView(navController: NavHostController) {
         if (viewModel.userRegState.value.loading) {
             Loading()
         } else {
-            UserRegForm(viewModel)
+            UserRegForm(navController , viewModel)
         }
 
     }
@@ -43,8 +42,16 @@ fun Loading() {
 }
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun UserRegForm(viewModel: UserRegistrationViewModel) {
+fun UserRegForm(navController: NavHostController, viewModel: UserRegistrationViewModel) {
+
+    val btnColors = ButtonDefaults.buttonColors(
+        backgroundColor = MyColors.primary,
+        contentColor = MyColors.primaryText
+    )
+
+
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -53,6 +60,13 @@ fun UserRegForm(viewModel: UserRegistrationViewModel) {
 
     )
     {
+        stickyHeader {
+            PageHeader(
+                bgColor = MyColors.primary,
+                header = "User Registration"
+            )
+            
+        }
         //user name
         item {
             UserRegTextField(
@@ -153,8 +167,23 @@ fun UserRegForm(viewModel: UserRegistrationViewModel) {
                             MyToast(msg = it).show()
                         })
                     )
-                }) {
+                },
+                colors = btnColors
+            ) {
                 Text(text = "Submit")
+            }
+        }
+
+        //back
+        item {
+            Button(
+                modifier = Modifier.padding(top = 20.dp),
+                onClick = {
+                    navController.popBackStack()
+                },
+                colors = btnColors
+            ) {
+                Text(text = "Back")
             }
         }
     }

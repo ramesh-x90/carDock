@@ -50,6 +50,7 @@ class LoginViewModelImpl : ViewModel() , LoginViewModel {
                     event.onFailed("Login Failed")
                 }
                 is UserAuthResult.Success -> {
+                    res.user
                     event.onSuccess("Login Successful")
                 }
             }

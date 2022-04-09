@@ -13,12 +13,12 @@ import kotlinx.coroutines.flow.Flow
 interface UserDao {
 
     @Query(
-        "SELECT name , email , contact_number , address FROM user"
+        "SELECT id , name , email , contact_number , address FROM user"
     )
     fun getUsers(): Flow<List<BaseUser>>?
 
     @Query(
-        "SELECT name , email , contact_number , address FROM user WHERE id = :id"
+        "SELECT id , name , email , contact_number , address FROM user WHERE id = :id"
     )
     suspend fun getUserById(id: Long): BaseUser?
 
@@ -36,7 +36,7 @@ interface UserDao {
     suspend fun getUserBalance(id: Long): Long?
 
     @Query(
-        "SELECT name , email , contact_number , address FROM user WHERE email = :email AND password = :psw"
+        "SELECT id , name , email , contact_number , address FROM user WHERE email = :email AND password = :psw"
     )
     suspend fun getAuthUser(email: String, psw: String): BaseUser?
 

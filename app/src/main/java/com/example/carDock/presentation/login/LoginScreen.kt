@@ -23,7 +23,7 @@ fun LoginScreen(navController: NavController) {
 
     val viewModel = AppModule.getViewModelServiceLocator().getUserLoginScreenViewModel()
 
-    Surface(color = MyColors.primaryLight) {
+    Surface(color = MyColors.primaryLight , modifier = Modifier.fillMaxSize()) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize(),

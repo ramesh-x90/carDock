@@ -21,6 +21,7 @@ import com.example.carDock.ui.theme.MyColors
 fun FilteredTextField(
     label: String,
     value: String,
+    isError : Boolean = false,
     modifier: Modifier = Modifier.padding(all = 0.dp),
     list: List<String>,
     onSelected: (obj: String) -> String,
@@ -45,7 +46,7 @@ fun FilteredTextField(
         RegFormTextFiled(
             value = textState.value,
             label = label,
-            error = false,
+            error = isError,
             onValueChange =
             {
                 expandedState = true

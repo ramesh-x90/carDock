@@ -11,9 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.carDock.AppModule
-import com.example.carDock.presentation.dashBoard.commponents.core.pageHeader
+import com.example.carDock.presentation.dashBoard.commponents.core.PageHeader
 import com.example.carDock.presentation.dashBoard.fragments.carList.commponents.CarItem
-import com.example.carDock.presentation.navigation.InnerCarListRoute
+import com.example.carDock.presentation.navigation.DashBoardRoutes
 import com.example.carDock.ui.theme.MyColors
 
 
@@ -23,7 +23,7 @@ fun CarListView(navController: NavHostController) {
     val viewModel = AppModule.getViewModelServiceLocator().getCarListScreenViewModel()
 
     Column {
-        pageHeader("Car List")
+        PageHeader("Car List")
         if (viewModel.state.value.carList.isEmpty()) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
             {
@@ -37,7 +37,7 @@ fun CarListView(navController: NavHostController) {
 
                 items(viewModel.state.value.carList) {
                     CarItem(it) { car ->
-                        navController.navigate(route = InnerCarListRoute.CarDetailsPage.route + "/${car.id}")
+                        navController.navigate(route = DashBoardRoutes.CarDetailsPage.route + "/${car.id}")
                     }
                 }
 

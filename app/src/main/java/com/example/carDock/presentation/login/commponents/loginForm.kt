@@ -1,10 +1,7 @@
 package com.example.carDock.presentation.login.commponents
 
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
@@ -24,10 +21,9 @@ import com.example.carDock.ui.theme.MyColors
 @Composable
 fun LoginForm(viewModel: LoginViewModel, onSuccess: (s : String) -> Unit, onFailed: (s : String) -> Unit) {
     Box {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally , modifier = Modifier.padding(all = 20.dp)) {
 
 
-            // Username field
 
             //Email Field
             CustomTextField(
@@ -51,6 +47,7 @@ fun LoginForm(viewModel: LoginViewModel, onSuccess: (s : String) -> Unit, onFail
                 onChange = {
                     viewModel.onEvent(LoginEvents.OnPasswordChange(it))
                 },
+                leadingIcon = R.drawable.ic_baseline_privacy_tip_24,
                 isPasswordField = true,
             )
 
@@ -69,6 +66,7 @@ fun LoginForm(viewModel: LoginViewModel, onSuccess: (s : String) -> Unit, onFail
                     backgroundColor = MyColors.primary,
                     contentColor = MyColors.primaryText
                 )
+
 
                 //login button
                 Button(

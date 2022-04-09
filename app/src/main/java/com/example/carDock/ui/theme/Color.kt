@@ -1,5 +1,6 @@
 package com.example.carDock.ui.theme
 
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.ui.graphics.Color
 
 val Purple200 = Color(0xFFBB86FC)
@@ -19,6 +20,7 @@ object MyColors {
     val secondaryLight: Color = Color(0xFF5cdfe7)
     val secondaryDark: Color = Color(0xFF007d85)
     val secondaryText: Color = Color(0xFF000000)
+
 }
 
 

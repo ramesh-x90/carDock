@@ -40,29 +40,43 @@ fun CarItem(car: Car, onClick: (car: Car) -> Unit) {
             verticalAlignment = Alignment.Top,
             modifier = Modifier.fillMaxSize()
         ) {
-            Image(
-                //don't have data base no brand and models images hope to fetch them from internet for now
-                //this is done
-                painter = painterResource(R.mipmap.neon_car),
-                contentDescription = null,
+//            Image(
+//                //don't have data base no brand and models images hope to fetch them from internet for now
+//                //this is done
+//                painter = painterResource(R.drawable.ic_baseline_car_24),
+//                contentDescription = null,
+//                modifier = Modifier
+//                    .fillMaxHeight()
+//                    .clip(
+//                        RoundedCornerShape(100.dp)
+//                    ),
+//                contentScale = ContentScale.FillHeight
+//            )
+            Box(
                 modifier = Modifier
-                    .fillMaxHeight()
-                    .clip(
-                        RoundedCornerShape(100.dp)
-                    ),
-                contentScale = ContentScale.FillHeight
-            )
+                .fillMaxHeight().width(50.dp).background(MyColors.secondary),
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_baseline_car_24),
+                    contentDescription = null ,
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    tint = Color(car.Color),
+
+                    )
+            }
+
             Column(modifier = Modifier
                 .padding(all = 10.dp)
                 .weight(1f)) {
                 Text(text = car.brand, overflow = TextOverflow.Ellipsis, maxLines = 1)
                 Text(text = car.model, overflow = TextOverflow.Ellipsis, maxLines = 1)
                 Spacer(modifier = Modifier.weight(1f))
-                LinearProgressIndicator(
-                    progress = 0.7f,
-                    color = Color(car.Color),
-                    modifier = Modifier.width(50.dp)
-                )
+//                LinearProgressIndicator(
+//                    progress = 0.7f,
+//                    color = Color(car.Color),
+//                    modifier = Modifier.width(50.dp)
+//                )
             }
 
             Column(
