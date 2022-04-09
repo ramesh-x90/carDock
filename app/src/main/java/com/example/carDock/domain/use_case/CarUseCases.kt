@@ -33,6 +33,6 @@ object CarUseCases {
 
     fun getAllCars(): Flow<List<Car>> = repository.getCars()
 
-    fun getCarById(id: Long): Car? = repository.getCarById(id)
+    suspend fun getCarById(id: Long): Car? = repository.getCarById(id)
 
 }

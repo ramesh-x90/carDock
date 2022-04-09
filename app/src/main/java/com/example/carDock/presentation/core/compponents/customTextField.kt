@@ -14,6 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.core.text.isDigitsOnly
 import com.example.carDock.R
 import com.example.carDock.ui.theme.MyColors
 
@@ -77,7 +78,19 @@ fun CustomTextField(
                 }
             }
         } else null,
-        onValueChange = onChange,
+        onValueChange = {
+
+            if(keyBoardType == KeyboardType.Number)
+            {
+                if (it.isDigitsOnly()) {
+                    onChange(it)
+                }
+            }else{
+                onChange(it)
+            }
+
+
+        },
         visualTransformation = if (hidePasswordState.value)
             PasswordVisualTransformation()
         else VisualTransformation.None,

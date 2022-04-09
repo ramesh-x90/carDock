@@ -20,7 +20,8 @@ import com.example.carDock.ui.theme.MyColors
 
 @Composable
 fun UserRegistrationView(navController: NavHostController) {
-    val viewModel = com.example.carDock.AppModule.getViewModelServiceLocator().getUserRegScreenViewModel()
+    val viewModel =
+        com.example.carDock.AppModule.getViewModelServiceLocator().getUserRegScreenViewModel()
 
     Surface(color = MyColors.primaryLight, modifier = Modifier.fillMaxSize()) {
         if (viewModel.userRegState.value.loading) {

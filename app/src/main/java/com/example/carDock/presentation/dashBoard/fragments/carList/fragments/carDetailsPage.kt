@@ -12,7 +12,7 @@ import com.example.carDock.ui.theme.MyColors
 
 @Composable
 fun CarDetailsPage(navController: NavHostController, id: Long?) {
-    val car: Car? = id?.let { CarUseCases.getCarById(it) }
+    val car: Car? = null
 
     LazyColumn(modifier = Modifier.fillMaxSize())
     {

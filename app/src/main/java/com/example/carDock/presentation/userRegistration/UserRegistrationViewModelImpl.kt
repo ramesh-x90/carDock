@@ -1,9 +1,9 @@
 package com.example.carDock.presentation.userRegistration
 
 import androidx.compose.runtime.mutableStateOf
+import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.carDock.debug.Log
 import com.example.carDock.domain.model.User
 import com.example.carDock.domain.use_case.UserUseCases
 import com.example.carDock.domain.util.UserRegResult
@@ -62,9 +62,7 @@ class UserRegistrationViewModelImpl : ViewModel(), UserRegistrationViewModel {
                 if (userRegState.value.password == userRegState.value.conformPassword) {
                     callUseCaseToRegisterUser(event)
                 } else {
-                    userRegErrorState.value = userRegErrorState.value.copy(
-                        confirmPasswordError = true
-                    )
+                    invalidateForm(confirmPassword = true)
                     event.onFailed("Password is mismatched")
                 }
 
@@ -77,7 +75,13 @@ class UserRegistrationViewModelImpl : ViewModel(), UserRegistrationViewModel {
 
         val user = createUserFromState()
 
-        user ?: return
+        if(user == null)
+        {
+            event.onFailed("invalid data")
+            invalidateForm(contactNum = true)
+            return
+
+        }
 
         viewModelScope.launch {
 
@@ -96,8 +100,6 @@ class UserRegistrationViewModelImpl : ViewModel(), UserRegistrationViewModel {
             )
 
             checkUserResults(event, regRes)
-
-            Log("ll")
 
 
             _coroutineLunched = false
@@ -121,13 +123,46 @@ class UserRegistrationViewModelImpl : ViewModel(), UserRegistrationViewModel {
                 email = state.email,
                 address = state.address,
                 password = state.password,
-                contact_number = state.contact_number.toInt()
+                contact_number = try{state.contact_number.toInt()}catch (e : Exception) {0}
             )
 
         } catch (e: Exception) {
             null
         }
 
+    }
+
+    private fun invalidateForm(
+        username : Boolean = false ,
+        email : Boolean = false ,
+        contactNum : Boolean = false ,
+        password : Boolean = false ,
+        confirmPassword : Boolean = false ,
+        address : Boolean = false,
+        all : Boolean = false
+
+    )
+    {
+        if(all){
+            userRegErrorState.value = userRegErrorState.value.copy(
+                contactNoError = true,
+                emailError = true ,
+                confirmPasswordError = true,
+                userNameError = true ,
+                passwordError = true ,
+                addressError = true
+            )
+
+            return
+        }
+        userRegErrorState.value = userRegErrorState.value.copy(
+            contactNoError = contactNum,
+            emailError = email ,
+            confirmPasswordError = confirmPassword,
+            userNameError = username ,
+            passwordError = password ,
+            addressError = address
+        )
     }
 
 
@@ -147,56 +182,48 @@ class UserRegistrationViewModelImpl : ViewModel(), UserRegistrationViewModel {
                 when (regRes as UserRegResult.Failed) {
                     is UserRegResult.Failed.DbError -> {
                         event.onFailed((regRes as UserRegResult.Failed.DbError).details)
-                        userRegErrorState.value = userRegErrorState.value.copy(
-                            emailError = true
-                        )
+                        invalidateForm(email = true)
                     }
                     UserRegResult.Failed.InvalidAddress -> {
                         event.onFailed(regRes.error)
                         userRegState.value = userRegState.value.copy(
                             address = ""
                         )
-                        userRegErrorState.value = userRegErrorState.value.copy(
-                            addressError = true
-                        )
+                        invalidateForm(address = true)
                     }
                     UserRegResult.Failed.InvalidContactNumber -> {
                         event.onFailed(regRes.error)
                         userRegState.value = userRegState.value.copy(
                             contact_number = ""
                         )
-                        userRegErrorState.value = userRegErrorState.value.copy(
-                            contactNoError = true
-                        )
+                        invalidateForm(contactNum = true)
                     }
                     UserRegResult.Failed.InvalidEmail -> {
                         event.onFailed(regRes.error)
                         userRegState.value = userRegState.value.copy(
                             email = ""
                         )
-                        userRegErrorState.value = userRegErrorState.value.copy(
-                            emailError = true
-                        )
+                        invalidateForm(email = true)
                     }
+
                     UserRegResult.Failed.InvalidInitBalance -> {
                         event.onFailed(regRes.error)
                     }
+
                     UserRegResult.Failed.InvalidPassword -> {
                         event.onFailed(regRes.error)
                         userRegState.value = userRegState.value.copy(
                             password = ""
                         )
-                        userRegErrorState.value = userRegErrorState.value.copy(
-                            passwordError = true
-                        )
+                        invalidateForm(password = true)
                     }
                     UserRegResult.Failed.InvalidUserName -> {
                         event.onFailed(regRes.error)
                         userRegState.value = userRegState.value.copy(
                             userName = ""
                         )
-                        userRegErrorState.value = userRegErrorState.value.copy(
-                            userNameError = true
+                        invalidateForm(
+                            username = true
                         )
                     }
                 }

@@ -9,7 +9,7 @@ interface CarRepository {
 
     fun getCars(): Flow<List<Car>>
 
-    fun getCarById(id: Long): Car?
+    suspend fun getCarById(id: Long): Car?
 
     suspend fun insertCar(car: Car)
 

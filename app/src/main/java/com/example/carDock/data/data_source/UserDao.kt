@@ -20,7 +20,7 @@ interface UserDao {
     @Query(
         "SELECT name , email , contact_number , address FROM user WHERE id = :id"
     )
-    fun getUserById(id: Long): BaseUser?
+    suspend fun getUserById(id: Long): BaseUser?
 
     @Insert(onConflict = OnConflictStrategy.ABORT, entity = User::class)
     suspend fun addUser(user: User)
@@ -33,12 +33,12 @@ interface UserDao {
     @Query(
         "SELECT balance FROM user WHERE id = :id"
     )
-    fun getUserBalance(id: Long): Long?
+    suspend fun getUserBalance(id: Long): Long?
 
     @Query(
         "SELECT name , email , contact_number , address FROM user WHERE email = :email AND password = :psw"
     )
-    fun getAuthUser(email: String, psw: String): BaseUser?
+    suspend fun getAuthUser(email: String, psw: String): BaseUser?
 
 
 }

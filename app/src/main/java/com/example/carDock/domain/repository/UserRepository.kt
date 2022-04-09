@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.Flow
 interface UserRepository {
 
     fun getAllUsers(): Flow<List<BaseUser>>?
-    fun getUserById(id: Long): BaseUser?
+    suspend fun getUserById(id: Long): BaseUser?
     suspend fun addUser(user: User)
     suspend fun delUser(id: Long)
-    fun getUserBalance(id: Long): Long?
-    fun getAuthUser(email: String, psw: String): BaseUser?
+    suspend fun getUserBalance(id: Long): Long?
+    suspend fun getAuthUser(email: String, psw: String): BaseUser?
 }

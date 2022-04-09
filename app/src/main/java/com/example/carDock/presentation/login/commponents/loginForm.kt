@@ -10,73 +10,48 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
-import com.example.carDock.presentation.login.validator
+import com.example.carDock.R
+import com.example.carDock.presentation.core.compponents.CustomTextField
+import com.example.carDock.presentation.login.LoginEvents
+import com.example.carDock.presentation.login.LoginViewModel
 import com.example.carDock.ui.theme.MyColors
 
 
 @Composable
-fun LoginForm(onSuccess: () -> Unit, onFailed: () -> Unit) {
+fun LoginForm(viewModel: LoginViewModel, onSuccess: (s : String) -> Unit, onFailed: (s : String) -> Unit) {
     Box {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
-            val textFieldModifier = Modifier.padding(bottom = 10.dp)
-
 
             // Username field
-            val usernameState = remember {
-                mutableStateOf("")
-            }
 
-            val textFieldColors = TextFieldDefaults.outlinedTextFieldColors(
-                textColor = MyColors.primaryText,
-                cursorColor = MyColors.secondaryLight,
-                focusedBorderColor = MyColors.secondaryLight,
-                focusedLabelColor = MyColors.secondaryLight,
-                leadingIconColor = MyColors.secondaryLight,
-                trailingIconColor = MyColors.secondaryLight
-
-
-            )
-
-            LoginFormUserNameField(
-                fieldValue = usernameState.value,
-                modifier = textFieldModifier,
-                colors = textFieldColors,
-                isError = !validator(usernameState.value),
+            //Email Field
+            CustomTextField(
+                fieldValue = viewModel.loginViewState.value.email ,
+                label = "Email",
+                isError = viewModel.loginErrorState.value.emailError,
                 onChange = {
-                    usernameState.value = it
+                    viewModel.onEvent(LoginEvents.OnEmailChange(it))
                 },
-                validate = {
-                    validator(usernameState.value)
-
-                }
-
+                leadingIcon = R.drawable.ic_baseline_person_24,
+                trailingIcon = R.drawable.ic_baseline_privacy_tip_24
             )
 
 
             //Password field
-            val passwordState = remember {
-                mutableStateOf("")
-            }
 
-            LoginFormPasswordField(
-                fieldValue = passwordState.value,
-                isError = !validator(passwordState.value),
-                modifier = textFieldModifier,
-                colors = textFieldColors,
+            CustomTextField(
+                fieldValue = viewModel.loginViewState.value.password ,
+                label = "Password",
+                isError = viewModel.loginErrorState.value.passwordError,
                 onChange = {
-                    passwordState.value = it
+                    viewModel.onEvent(LoginEvents.OnPasswordChange(it))
                 },
-                validate = {
-                    validator(passwordState.value)
-                }
-
+                isPasswordField = true,
             )
 
 
@@ -101,10 +76,13 @@ fun LoginForm(onSuccess: () -> Unit, onFailed: () -> Unit) {
                     modifier = btnModifier,
                     colors = btnColors,
                     onClick = {
-                        if (validator(usernameState.value) && validator(passwordState.value)) {
-                            onSuccess()
-                        }
-                    }) {
+                        viewModel.onEvent(LoginEvents.OnLoginSubmit(
+                            onSuccess = onSuccess,
+                            onFailed = onFailed
+                        ))
+
+                    }
+                ) {
                     Text(text = "Login")
                 }
 

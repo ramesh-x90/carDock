@@ -11,13 +11,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.carDock.AppModule
 import com.example.carDock.R
+import com.example.carDock.presentation.core.compponents.MyToast
 import com.example.carDock.presentation.login.commponents.LoginForm
 import com.example.carDock.presentation.navigation.Routes
 import com.example.carDock.ui.theme.MyColors
 
 @Composable
 fun LoginScreen(navController: NavController) {
+
+    val viewModel = AppModule.getViewModelServiceLocator().getUserLoginScreenViewModel()
+
     Surface(color = MyColors.primaryLight) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -35,16 +40,16 @@ fun LoginScreen(navController: NavController) {
 
             }
 
-            LoginForm(
+            LoginForm( viewModel,
                 onSuccess = {
-                    com.example.carDock.AppModule.getViewModelServiceLocator().resetViewModels()
+                    MyToast(it).show()
+                    AppModule.getViewModelServiceLocator().resetViewModels()
                     navController.navigate(Routes.DashBoard.route)
                 },
                 onFailed = {
-
+                    MyToast(it).show()
                 }
             )
-
             //registration button
             val btnModifier = Modifier
                 .padding(top = 20.dp)

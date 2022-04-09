@@ -13,6 +13,20 @@ import org.junit.Test
 class ExampleUnitTest {
     @Test
     fun userValidationText() {
+        val a = "0701686043"
+
+        val b = User(
+            password = "0701686043",
+            email = "ramesh@gmail.com",
+            address =  "ramesh@gmail.com",
+            contact_number = a.toInt(),
+            balance = 0,
+            name = "ramesh",
+
+        ).validateUser()
+
+        val tag = "--- ${b.toString()} ---"
+        print(tag)
 
         assertEquals(true, true)
     }

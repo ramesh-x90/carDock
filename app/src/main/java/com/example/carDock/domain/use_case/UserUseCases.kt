@@ -14,7 +14,7 @@ object UserUseCases {
     private val userRepository: UserRepository =
         com.example.carDock.AppModule.getDSRepoServiceLocator().getUserRepositoryImpl()
 
-    fun login(email: String, password: String): UserAuthResult {
+    suspend fun login(email: String, password: String): UserAuthResult {
         if (Validators.validateEmail(email).and(password.isNotBlank())) {
             val authUser = authenticate(email, password)
 
@@ -27,14 +27,14 @@ object UserUseCases {
 
     }
 
-    private fun authenticate(email: String, password: String): BaseUser? =
+    private suspend fun authenticate(email: String, password: String): BaseUser? =
         userRepository.getAuthUser(email = email, psw = password)
 
 
-    fun getUserById(id: Long): BaseUser? = userRepository.getUserById(id)
+    suspend fun getUserById(id: Long): BaseUser? = userRepository.getUserById(id)
 
 
-    fun getUserBalance(id: Long): Long? = userRepository.getUserBalance(id)
+    suspend fun getUserBalance(id: Long): Long? = userRepository.getUserBalance(id)
 
     suspend fun registerUser(user: User): UserRegResult {
         val res = user.validateUser()

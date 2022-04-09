@@ -10,7 +10,7 @@ class CarRepositoryImpl(private val dao: CarDao) : CarRepository {
 
     override fun getCars(): Flow<List<Car>> = dao.getCars()
 
-    override fun getCarById(id: Long): Car? = dao.getCarById(id)
+    override suspend fun getCarById(id: Long): Car? = dao.getCarById(id)
 
     override suspend fun insertCar(car: Car) = dao.addCar(car)
 
