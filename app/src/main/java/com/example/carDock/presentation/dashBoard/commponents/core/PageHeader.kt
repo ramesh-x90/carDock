@@ -1,11 +1,12 @@
 package com.example.carDock.presentation.dashBoard.commponents.core
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,7 +18,14 @@ import com.example.carDock.ui.theme.MyColors
 
 
 @Composable
-fun PageHeader(header: String, bgColor: Color = MyColors.primaryLight) {
+fun PageHeader(
+    header: String,
+    bgColor: Color = MyColors.primaryLight,
+    leading : @Composable() (() -> Unit) ? = null,
+    trailing : @Composable() (() -> Unit) ? = null,
+    content : @Composable() (() -> Unit) ? = null,
+
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -26,12 +34,59 @@ fun PageHeader(header: String, bgColor: Color = MyColors.primaryLight) {
             .background(bgColor),
         contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = header, modifier = Modifier
-                .padding(all = 10.dp),
-            fontWeight = FontWeight.W600,
-            color = MyColors.primaryText
-        )
+
+        Box() {
+
+            Column(
+                modifier = Modifier.fillMaxWidth() ,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+
+                Row(
+                    horizontalArrangement = Arrangement.Center ,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+
+                    leading?.invoke()
+
+                    if(leading != null)
+                    {
+                        Spacer(modifier = Modifier.weight(1f))
+
+                    }
+
+
+                    Text(
+                        text = header, modifier = Modifier
+                            .padding(all = 10.dp),
+                        fontWeight = FontWeight.W600,
+                        color = MyColors.primaryText
+                    )
+
+
+                    if(trailing != null)
+                    {
+                        Spacer(modifier = Modifier.weight(1f))
+
+                    }
+
+                    trailing?.invoke()
+
+
+
+                }
+
+                content?.invoke()
+
+
+
+
+            }
+        }
+
+
+
     }
 
 }

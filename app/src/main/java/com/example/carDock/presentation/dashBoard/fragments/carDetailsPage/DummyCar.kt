@@ -12,6 +12,6 @@ data class DummyCar(
 
     val price: Long = 0,
 
-    val seller: Long = 0,
+    val seller : String = ""  ,
     val availability: Boolean = true
             )

@@ -3,13 +3,15 @@ package com.example.carDock.domain.use_case
 
 import android.database.sqlite.SQLiteConstraintException
 import com.example.carDock.AppModule
+import com.example.carDock.debug.Log
 import com.example.carDock.domain.model.BaseUser
+import com.example.carDock.domain.model.Car
 import com.example.carDock.domain.model.User
 import com.example.carDock.domain.repository.UserRepository
-import com.example.carDock.domain.util.UserAuthResult
-import com.example.carDock.domain.util.UserRegResult
-import com.example.carDock.domain.util.Validators
+import com.example.carDock.domain.util.*
+import com.example.carDock.domain.util.utilModels.UserFlowData
 import com.example.carDock.globalState.CurrentUserState
+import kotlinx.coroutines.flow.Flow
 
 object UserUseCases {
 
@@ -54,7 +56,58 @@ object UserUseCases {
         return UserRegResult.Success
     }
 
+    suspend fun buyACar(id : Long): CarBuyResults {
+        val buyer = CurrentUserState.getCurrentUser() ?:
+        return CarBuyResults.Failed.InvalidUserCredential
+
+
+        val car = CarUseCases.getCarById(id) ?:
+        return CarBuyResults.Failed.InvalidCar
+
+        if(!validatePurchase(buyer.id , car)) return CarBuyResults.Failed.NotEnoughBalance
+        if(!CarUseCases.isCarAvailable(id)) {
+            return CarBuyResults.Failed.CarIsAlreadySold
+        }
+
+
+        try {
+            CarUseCases.byACar(id)
+            userRepository.deductBalance(buyer.id , car.price)
+
+            //TODO add this car and user to sold car list
+
+        }catch (e : NotEnoughBalanceException){
+            //error
+            return CarBuyResults.Failed.NotEnoughBalance
+        }catch (e : InvalidCarException) {
+            return CarBuyResults.Failed.InvalidCar
+        }catch (e : SoldCarException){
+
+            return CarBuyResults.Failed.CarIsAlreadySold
+        }
+
+
+        return CarBuyResults.Success
+
+
+
+    }
+
+
+    private suspend fun validatePurchase(id : Long, car : Car): Boolean {
+        val bal = getUserBalance(id)!!
+        Log(bal.toString())
+        return bal >= car.price
+    }
+
 
 
     fun getAllUsers() = userRepository.getAllUsers()
+
+
+    fun getUserDataFlow() : Flow<UserFlowData>?
+    {
+        val id = CurrentUserState.getCurrentUser()?.id
+        return id?.let { userRepository.getUserDataFlow(it) }
+    }
 }

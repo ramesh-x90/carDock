@@ -16,4 +16,8 @@ interface CarRepository {
     suspend fun deleteCar(car: Car)
 
     fun getSellingCars(bool: Boolean = true): Flow<List<Car>>
+
+    suspend fun makeCarSold(id : Long)
+
+    suspend fun isCarAvailable(id : Long) :Boolean
 }

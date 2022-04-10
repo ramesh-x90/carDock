@@ -1,7 +1,7 @@
 package com.example.carDock.presentation.dashBoard.fragments.carList.commponents
 
 
-import androidx.compose.foundation.Image
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -54,7 +53,9 @@ fun CarItem(car: Car, onClick: (car: Car) -> Unit) {
 //            )
             Box(
                 modifier = Modifier
-                .fillMaxHeight().width(50.dp).background(MyColors.secondary),
+                    .fillMaxHeight()
+                    .width(50.dp)
+                    .background(MyColors.secondary),
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_car_24),
@@ -79,6 +80,16 @@ fun CarItem(car: Car, onClick: (car: Car) -> Unit) {
 //                )
             }
 
+            if(!car.availability)
+            {
+                Box(contentAlignment = Alignment.Center ,
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                ) {
+                    Text(text = "Sold" , color = Color.Green)
+                }
+
+            }
+
             Column(
                 horizontalAlignment = Alignment.End, modifier = Modifier
                     .fillMaxHeight()
@@ -86,7 +97,7 @@ fun CarItem(car: Car, onClick: (car: Car) -> Unit) {
                     .weight(1f),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = car.price.toString() + "/=")
+                Text(text = car.price.toString() + " USD")
 
                 Spacer(modifier = Modifier.weight(1f))
 

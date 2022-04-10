@@ -25,6 +25,7 @@ data class CarRegState(
         FuelTypes.CNG,
         FuelTypes.LPG,
         FuelTypes.Hydrogen,
+        FuelTypes.Electric
     ),
 
     val selectedColor: Color = Color.Red

@@ -18,4 +18,9 @@ class CarRepositoryImpl(private val dao: CarDao) : CarRepository {
 
     override fun getSellingCars(bool: Boolean): Flow<List<Car>> = dao.getSellingCars(bool)
 
+    override suspend fun makeCarSold(id : Long) {
+        dao.makeCarSold(id )
+    }
+
+    override suspend fun isCarAvailable(id: Long): Boolean = dao.isCarAvailable(id)
 }

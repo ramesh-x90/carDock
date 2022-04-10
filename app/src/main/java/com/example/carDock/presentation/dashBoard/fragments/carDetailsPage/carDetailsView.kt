@@ -1,25 +1,24 @@
 package com.example.carDock.presentation.dashBoard.fragments.carDetailsPage
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Card
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.carDock.AppModule
 import com.example.carDock.R
+import com.example.carDock.presentation.core.compponents.MyToast
+import com.example.carDock.presentation.core.compponents.SimpleTextBox
 import com.example.carDock.ui.theme.MyColors
 
 @Composable
@@ -51,38 +50,101 @@ fun CarDetailsPage(navController: NavHostController, id: Long?) {
                     modifier = Modifier.padding(all = 20.dp),
                 ) {
                     Image(
-                        painter = painterResource(id = R.mipmap.ic_launcher),
+                        painter = painterResource(id = R.drawable.ic_baseline_car_24),
                         contentDescription = null ,
-                        modifier = Modifier.fillMaxWidth(),
-                        contentScale = ContentScale.FillWidth
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(shape = RoundedCornerShape(20.dp)),
+                        contentScale = ContentScale.FillWidth,
+                        colorFilter = ColorFilter.tint(Color(viewModel.state.value.Color))
 
                     )
-                    Text(text = viewModel.state.value.brand, color = MyColors.primaryText)
-                    Text(text = viewModel.state.value.model, color = MyColors.primaryText)
-                    Text(text = viewModel.state.value.chassis_no, color = MyColors.primaryText)
-                    Text(text = viewModel.state.value.engine_no, color = MyColors.primaryText)
-                    Text(text = viewModel.state.value.fuelType, color = MyColors.primaryText)
-                    Text(text = "${viewModel.state.value.seller}", color = MyColors.primaryText)
-                    Text(text = "${viewModel.state.value.timestamp}", color = MyColors.primaryText)
-                    Text(text = "${viewModel.state.value.Color}", color = MyColors.primaryText)
-                    Text(text = "${viewModel.state.value.price}", color = MyColors.primaryText)
+
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        val modifier = Modifier.weight(1f)
+
+                        SimpleTextBox(
+                            value = viewModel.state.value.brand,
+                            label = "Brand",
+                            modifier = modifier
+                        )
+
+                        Spacer(modifier = Modifier.width(10.dp))
+
+                        SimpleTextBox(
+                            value = viewModel.state.value.model,
+                            label = "Brand",
+                            modifier = modifier
+                        )
+
+                    }
+
+                    SimpleTextBox(
+                        value = viewModel.state.value.chassis_no,
+                        label = "Chassis Number",
+                    )
+
+
+                    SimpleTextBox(
+                        value = viewModel.state.value.engine_no,
+                        label = "Engine No",
+                    )
+
+                    SimpleTextBox(
+                        value = viewModel.state.value.fuelType,
+                        label = "Fuel Type",
+                    )
+
+
+                    SimpleTextBox(
+                        value = viewModel.state.value.seller,
+                        label = "Seller",
+                    )
+
+                    SimpleTextBox(
+                        value = viewModel.state.value.price.toString(),
+                        label = "Price (USD)",
+                    )
+
 
                     Button(
-                        onClick = { /*TODO*/ } ,
-                        modifier = Modifier.fillMaxWidth() ,
+                        enabled = viewModel.state.value.availability,
+                        onClick = {
+                                  viewModel.onEvent(
+                                      CarPurchaseEvents.OnBuy(
+                                          onFailed = {
+                                              MyToast(it).show()
+                                          },
+                                          onSuccess = {
+                                              MyToast(it).show()
+                                          },
+
+
+                                          )
+                                  )
+
+                        } ,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp) ,
                         colors = btnColors) {
-                        Text(text = "Buy")
+                        Text(text = if(viewModel.state.value.availability)"Buy" else "Sold")
                     }
 
 
                 }
+                
             }
+            
 
 
 
         }
 
-
+        
+        item { 
+            Spacer(modifier = Modifier.height(100.dp))
+        }
 
 
 

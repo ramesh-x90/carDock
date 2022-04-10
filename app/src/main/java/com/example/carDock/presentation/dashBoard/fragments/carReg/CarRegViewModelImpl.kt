@@ -110,9 +110,15 @@ class CarRegViewModelImpl : ViewModel(), CarRegViewModel {
                 event.price.isDigitsOnly().let {
                     when (it) {
                         true -> {
-                            _carRegFormState.value = _carRegFormState.value.copy(
-                                price = event.price.toLong()
-                            )
+                            try {
+                                _carRegFormState.value = _carRegFormState.value.copy(
+                                    price = event.price.toLong()
+                                )
+                            }catch (e : Exception)
+                            {
+
+                            }
+
                         }
                     }
                 }

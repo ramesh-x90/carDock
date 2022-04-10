@@ -2,9 +2,12 @@ package com.example.carDock.domain.repository
 
 
 
+import com.example.carDock.domain.util.NotEnoughBalanceException
 import com.example.carDock.domain.model.BaseUser
 import com.example.carDock.domain.model.User
+import com.example.carDock.domain.util.utilModels.UserFlowData
 import kotlinx.coroutines.flow.Flow
+import kotlin.jvm.Throws
 
 interface UserRepository {
 
@@ -14,4 +17,9 @@ interface UserRepository {
     suspend fun delUser(id: Long)
     suspend fun getUserBalance(id: Long): Long?
     suspend fun getAuthUser(email: String, psw: String): BaseUser?
+
+    @Throws(exceptionClasses = [NotEnoughBalanceException :: class])
+    suspend fun deductBalance(id : Long , amount : Long)
+
+    fun getUserDataFlow(id : Long) : Flow<UserFlowData>?
 }

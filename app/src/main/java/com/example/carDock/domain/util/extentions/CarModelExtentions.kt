@@ -44,6 +44,9 @@ fun isValidFuelType(name: String): Boolean {
         (name == FuelTypes.Diesel.name) -> true
         (name == FuelTypes.Hydrogen.name) -> true
         (name == FuelTypes.LPG.name) -> true
+        (name == FuelTypes.Electric.name) -> true
         else -> false
     }
+
+
 }

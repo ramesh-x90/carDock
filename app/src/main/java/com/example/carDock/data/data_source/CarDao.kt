@@ -30,4 +30,15 @@ interface CarDao {
     fun getSellingCars(bool: Boolean): Flow<List<Car>>
 
 
+    @Query(
+        "UPDATE car SET availability = 0 WHERE id = :id and availability = 1"
+    )
+    suspend fun makeCarSold(id : Long)
+
+
+    @Query(
+        "SELECT availability FROM car WHERE id = :id"
+    )
+    suspend fun isCarAvailable(id : Long) : Boolean
+
 }

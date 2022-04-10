@@ -11,7 +11,7 @@ import com.example.carDock.presentation.dashBoard.fragments.carList.CarListView
 import com.example.carDock.presentation.dashBoard.fragments.carDetailsPage.CarDetailsPage
 import com.example.carDock.presentation.dashBoard.fragments.cartpage.CartPage
 import com.example.carDock.presentation.dashBoard.fragments.carReg.CarRegView
-import com.example.carDock.presentation.dashBoard.fragments.profile.profileView
+import com.example.carDock.presentation.dashBoard.fragments.profile.ProfileView
 import com.example.carDock.presentation.login.LoginScreen
 import com.example.carDock.presentation.userRegistration.UserRegistrationView
 
@@ -74,7 +74,7 @@ fun BottomNavigationGraph(navController: NavHostController) {
         }
 
         composable(route = DashBoardRoutes.Profile.route) {
-            profileView()
+            ProfileView()
         }
 
         composable(
