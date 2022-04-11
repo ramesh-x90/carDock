@@ -23,7 +23,7 @@ fun LoginScreen(navController: NavController) {
 
     val viewModel = AppModule.getViewModelServiceLocator().getUserLoginScreenViewModel()
 
-    Surface(color = MyColors.primaryLight , modifier = Modifier.fillMaxSize()) {
+    Surface(color = MyColors.primaryLight, modifier = Modifier.fillMaxSize()) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize(),
@@ -40,7 +40,7 @@ fun LoginScreen(navController: NavController) {
 
             }
 
-            LoginForm( viewModel,
+            LoginForm(viewModel,
                 onSuccess = {
                     MyToast(it).show()
                     AppModule.getViewModelServiceLocator().resetViewModels()
@@ -70,15 +70,14 @@ fun LoginScreen(navController: NavController) {
                 Text(text = "Register")
             }
 
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
+                Text(text = "Developed By", color = MyColors.primaryText)
+                Text(text = AppModule.developerName, color = MyColors.secondaryLight)
+            }
+
 
         }
     }
-}
-
-
-//view level validator
-fun validator(value: String): Boolean {
-    return value.isNotBlank()
-
 }
 

@@ -21,7 +21,7 @@ class BrandDataSource(private val path: String) {
 
     private fun readJsonFromAsset(): List<Brand>? {
 
-        var jsonStr: String? = null
+        val jsonStr: String?
 
         try {
             jsonStr = com.example.carDock.AppModule.instance.assets.open(path).bufferedReader().use {
@@ -43,7 +43,7 @@ class BrandDataSource(private val path: String) {
 
     }
 
-    class JsonException(private val msg: String) : Exception("JsonReadException: $msg")
+    class JsonException(msg: String) : Exception("JsonReadException: $msg")
 
 
 }

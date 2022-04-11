@@ -16,8 +16,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.TextUnitType
-import androidx.compose.ui.unit.sp
 import androidx.core.text.isDigitsOnly
 import com.example.carDock.R
 import com.example.carDock.ui.theme.MyColors

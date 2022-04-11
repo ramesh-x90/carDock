@@ -8,8 +8,8 @@ class Log {
     companion object {
 
         operator fun invoke(text: String) {
-            val deBug: Boolean = true
-            val tag: String = "composeExample"
+            val deBug = true
+            val tag = "composeExample"
 
             if (!deBug) return
             BaseLog.i(tag, text)

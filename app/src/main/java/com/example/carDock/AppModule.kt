@@ -11,6 +11,8 @@ import com.example.carDock.serviceLocators.ViewModelsServiceLocator
 
 @SuppressLint("StaticFieldLeak")
 object AppModule {
+
+    const val developerName = "Ramesh Shyaman (AA2101)"
     lateinit var instance: Context
     const val brandJsonFilePath: String = "Brands/dataList.json"
 
