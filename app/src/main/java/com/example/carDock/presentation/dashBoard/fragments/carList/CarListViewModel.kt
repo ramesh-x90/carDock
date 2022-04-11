@@ -138,7 +138,7 @@ class CarListViewModel : ViewModel() {
                     )
                 }catch (e : Exception){
                     _filterState.value = _filterState.value.copy(
-                        upperPrice = 5000000L
+                        upperPrice = 0
                     )
                 }
             }
