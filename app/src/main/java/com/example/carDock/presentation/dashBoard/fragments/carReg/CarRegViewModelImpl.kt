@@ -41,6 +41,11 @@ class CarRegViewModelImpl : ViewModel(), CarRegViewModel {
 
         val action = when (event) {
             is CarRegEvents.OnBrandChange -> {
+
+                _carRegFormState.value = _carRegFormState.value.copy(
+                    selectedBrand = event.text
+                )
+
                 _carRegFormState.value = _carRegFormState.value.copy(
                     brandList = BrandUseCases.getBrandsByBrandName(event.text),
                 )

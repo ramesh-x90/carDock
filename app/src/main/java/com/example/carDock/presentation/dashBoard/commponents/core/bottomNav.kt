@@ -63,7 +63,8 @@ fun BottomNav(navController: NavHostController) {
                     selectedContentColor = MyColors.secondaryLight,
                     unselectedContentColor = MyColors.primaryText,
                     onClick = {
-                        navController.navigate(it.route) {
+                        if(it.route != currentRoute)
+                            navController.navigate(it.route) {
                             popUpTo(it.route) {
                                 inclusive = true
                             }

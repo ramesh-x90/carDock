@@ -74,6 +74,10 @@ object UserUseCases {
             CarUseCases.byACar(id)
             userRepository.deductBalance(buyer.id , car.price)
 
+            val profit = car.price*70/100
+
+            userRepository.deposit(car.seller , profit)
+
             //TODO add this car and user to sold car list
 
         }catch (e : NotEnoughBalanceException){

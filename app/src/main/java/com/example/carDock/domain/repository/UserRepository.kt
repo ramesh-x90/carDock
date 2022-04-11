@@ -21,5 +21,7 @@ interface UserRepository {
     @Throws(exceptionClasses = [NotEnoughBalanceException :: class])
     suspend fun deductBalance(id : Long , amount : Long)
 
+    suspend fun deposit(id : Long, amount : Long)
+
     fun getUserDataFlow(id : Long) : Flow<UserFlowData>?
 }

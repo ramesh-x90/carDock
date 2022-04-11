@@ -22,7 +22,7 @@ fun FilteredTextField(
     label: String,
     value: String,
     isError : Boolean = false,
-    modifier: Modifier = Modifier.padding(all = 0.dp),
+    modifier: Modifier = Modifier.padding(vertical = 5.dp),
     list: List<String>,
     onSelected: (obj: String) -> String,
     onChange: (text: String) -> Unit

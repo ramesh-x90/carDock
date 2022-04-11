@@ -34,6 +34,14 @@ class UserRepositoryImpl(private val dao: UserDao) : UserRepository {
         }
     }
 
+    override suspend fun deposit(id: Long, amount: Long) {
+        val currentBal = getUserBalance(id)
+        val newBal = currentBal?.plus(amount)
+        if (newBal != null) {
+            dao.changeBalance(id , newBal)
+        }
+
+    }
 
     override fun getUserDataFlow(id: Long): Flow<UserFlowData>? = dao.getUserDataFlow(id)
 }

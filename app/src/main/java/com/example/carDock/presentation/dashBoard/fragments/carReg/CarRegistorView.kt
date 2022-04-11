@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import com.example.carDock.AppModule
 import com.example.carDock.domain.model.Car
 import com.example.carDock.presentation.core.compponents.MyToast
 import com.example.carDock.presentation.dashBoard.commponents.core.PageHeader
@@ -34,7 +35,7 @@ import com.example.carDock.ui.theme.MyColors
 fun CarRegView() {
 
     val viewModel =
-        com.example.carDock.AppModule.getViewModelServiceLocator().getCarRegScreenViewModel()
+        AppModule.getViewModelServiceLocator().getCarRegScreenViewModel()
 
     Column(modifier = Modifier.fillMaxWidth()) {
         PageHeader("Register a Car")
