@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.example.carDock.AppModule
 import com.example.carDock.domain.model.Car
+import com.example.carDock.presentation.core.compponents.CustomTextField
 import com.example.carDock.presentation.core.compponents.MyToast
 import com.example.carDock.presentation.dashBoard.commponents.core.PageHeader
 import com.example.carDock.presentation.dashBoard.fragments.carReg.commponents.FilteredTextField
@@ -67,6 +68,22 @@ fun CarRegView() {
             }
 
 
+            item {
+                CustomTextField(
+                    fieldValue = viewModel.carRegFormState.value.year,
+                    label = "Launched Year",
+                    isError = viewModel.formErrorState.value.yearError,
+                    onChange = {
+                        viewModel.onEvent(
+                            CarRegEvents.OnYearChange(it)
+                        )
+                    },
+                    keyBoardType = KeyboardType.Number
+                )
+
+            }
+
+
 
             item {
 
@@ -87,6 +104,8 @@ fun CarRegView() {
                     )
                 }
             }
+
+
 
 
 

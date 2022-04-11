@@ -72,6 +72,7 @@ fun CarItem(car: Car, onClick: (car: Car) -> Unit) {
                 .weight(1f)) {
                 Text(text = car.brand, overflow = TextOverflow.Ellipsis, maxLines = 1)
                 Text(text = car.model, overflow = TextOverflow.Ellipsis, maxLines = 1)
+                Text(text = car.launchedYear, overflow = TextOverflow.Ellipsis, maxLines = 1)
                 Spacer(modifier = Modifier.weight(1f))
 //                LinearProgressIndicator(
 //                    progress = 0.7f,

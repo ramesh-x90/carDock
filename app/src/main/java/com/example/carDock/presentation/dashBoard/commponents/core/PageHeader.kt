@@ -1,5 +1,6 @@
 package com.example.carDock.presentation.dashBoard.commponents.core
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,9 +15,11 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import com.example.carDock.ui.theme.MyColors
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PageHeader(
     header: String,
@@ -41,7 +44,6 @@ fun PageHeader(
                 modifier = Modifier.fillMaxWidth() ,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
 
                 Row(
                     horizontalArrangement = Arrangement.Center ,
@@ -75,9 +77,23 @@ fun PageHeader(
 
 
 
+
+
                 }
 
-                content?.invoke()
+                if(content != null)
+                {
+                    Box(modifier = Modifier
+                        .fillMaxWidth()
+                    ) {
+                        content()
+
+                    }
+
+                }
+
+
+
 
 
 

@@ -9,6 +9,7 @@ data class DummyCar(
     val engine_no: String = "",
     val fuelType: String = "",
     val timestamp: Long = 0,
+    val year: String = "",
 
     val price: Long = 0,
 

@@ -10,39 +10,45 @@ import com.example.carDock.AppModule
 import com.example.carDock.presentation.dashBoard.commponents.core.PageHeader
 import com.example.carDock.presentation.core.compponents.SimpleTextBox
 
-@OptIn(ExperimentalFoundationApi::class)
+
+
+
 @Composable
 fun ProfileView() {
 
     val viewModel = AppModule.getViewModelServiceLocator().getProfileViewModel()
 
-    LazyColumn(modifier = Modifier.fillMaxWidth()) {
-        stickyHeader {
-            PageHeader("Profile")
-        }
+    Column() {
+        PageHeader("Profile")
 
-        item {
-            Box() {
+        LazyColumn(modifier = Modifier.fillMaxWidth()) {
 
-                Column(modifier = Modifier.padding(all = 10.dp)) {
-                    SimpleTextBox(value = viewModel.state.value.id.toString(), label = "ID",)
-                    SimpleTextBox(value = viewModel.state.value.name, label = "Username",)
-                    SimpleTextBox(value = viewModel.state.value.email, label = "Email",)
-                    SimpleTextBox(value = viewModel.state.value.address, label = "Address",)
-                    SimpleTextBox(value = viewModel.state.value.contact_number.toString(), label = "Contact Number",)
-                    SimpleTextBox(value = viewModel.state.value.balance.toString(), label = "Balance (USD)",)
+            item {
+                Box() {
 
-
+                    Column(modifier = Modifier.padding(all = 10.dp)) {
+                        SimpleTextBox(value = viewModel.state.value.id.toString(), label = "ID",)
+                        SimpleTextBox(value = viewModel.state.value.name, label = "Username",)
+                        SimpleTextBox(value = viewModel.state.value.email, label = "Email",)
+                        SimpleTextBox(value = viewModel.state.value.address, label = "Address",)
+                        SimpleTextBox(value = viewModel.state.value.contact_number.toString(), label = "Contact Number",)
+                        SimpleTextBox(value = viewModel.state.value.balance.toString(), label = "Balance (USD)",)
 
 
+
+
+                    }
                 }
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(100.dp))
             }
         }
 
-        item {
-            Spacer(modifier = Modifier.height(100.dp))
-        }
     }
+
+
 }
 
 

@@ -6,6 +6,8 @@ import com.example.carDock.domain.use_case.BrandUseCases
 import com.example.carDock.domain.util.CarRegErrors
 import com.example.carDock.domain.util.CarRegValidationResult
 import com.example.carDock.domain.util.FuelTypes
+import com.example.carDock.domain.util.Validators.isValidFuelType
+import com.example.carDock.domain.util.Validators.isValidYear
 
 
 fun Car.validate(): CarRegValidationResult {
@@ -14,12 +16,17 @@ fun Car.validate(): CarRegValidationResult {
         brand.isBlank().or(
             BrandUseCases.isNotBrandExist(brand)
         ) -> CarRegValidationResult(this, CarRegErrors.InvalidBrandError)
+
+        launchedYear.isBlank() || !isValidYear(launchedYear) -> CarRegValidationResult(this , CarRegErrors.InvalidLaunchYear)
+
         model.isBlank().or(
             BrandUseCases.isNotModelExist(brand, model)
         ) -> CarRegValidationResult(this, CarRegErrors.InvalidModelError)
+
         (price < 0) -> CarRegValidationResult(this, CarRegErrors.InvalidPriceError)
 
         chassis_no.isBlank() -> CarRegValidationResult(this, CarRegErrors.InvalidChassisNoError)
+
         engine_no.isBlank() -> CarRegValidationResult(this, CarRegErrors.InvalidEngineNoError)
 
         (seller < 0) -> CarRegValidationResult(this, CarRegErrors.InvalidSellerError)
@@ -30,6 +37,7 @@ fun Car.validate(): CarRegValidationResult {
         )
 
 
+
         else -> CarRegValidationResult(this, CarRegErrors.None)
 
     }
@@ -37,16 +45,3 @@ fun Car.validate(): CarRegValidationResult {
 }
 
 
-fun isValidFuelType(name: String): Boolean {
-    return when {
-        (name == FuelTypes.Gasoline.name) -> true
-        (name == FuelTypes.CNG.name) -> true
-        (name == FuelTypes.Diesel.name) -> true
-        (name == FuelTypes.Hydrogen.name) -> true
-        (name == FuelTypes.LPG.name) -> true
-        (name == FuelTypes.Electric.name) -> true
-        else -> false
-    }
-
-
-}

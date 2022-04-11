@@ -18,6 +18,9 @@ data class Car(
     val fuelType: String,
     val timestamp: Long = System.currentTimeMillis(),
 
+
+    val launchedYear : String,
+
     val price: Long,
 
     val seller: Long,

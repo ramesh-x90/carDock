@@ -147,6 +147,12 @@ class CarRegViewModelImpl : ViewModel(), CarRegViewModel {
                 )
             }
 
+            is CarRegEvents.OnYearChange -> {
+                _carRegFormState.value = _carRegFormState.value.copy(
+                    year = event.year
+                )
+            }
+
 
             is CarRegEvents.OnRegister -> registerCar(event)
         }
@@ -164,7 +170,8 @@ class CarRegViewModelImpl : ViewModel(), CarRegViewModel {
             Color = carRegStateObj.selectedColor.toArgb(),
             chassis_no = carRegStateObj.chassis_no,
             brand = carRegStateObj.selectedBrand,
-            price = carRegStateObj.price
+            price = carRegStateObj.price,
+            launchedYear = carRegStateObj.year
         )
 
         viewModelScope.launch {
@@ -210,9 +217,24 @@ class CarRegViewModelImpl : ViewModel(), CarRegViewModel {
                         priceError = true
                     )
                 }
+
+
+
+                CarRegErrors.InvalidLaunchYear -> {
+                    event.onFailed(res.error)
+                    _formErrorState.value = _formErrorState.value.copy(
+                        yearError = true
+                    )
+                    _carRegFormState.value = _carRegFormState.value.copy(
+                        year = ""
+                    )
+                }
+
+
                 CarRegErrors.InvalidSellerError -> {
                     event.onFailed(res.error)
                 }
+
 
                 CarRegErrors.None -> {
                     event.onSuccess("Registration successful")

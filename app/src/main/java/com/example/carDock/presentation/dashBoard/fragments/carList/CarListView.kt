@@ -29,63 +29,76 @@ fun CarListView(navController: NavHostController) {
 
 
 
-    LazyColumn(
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        stickyHeader {
-            PageHeader(
-                header = "Car List",
-                leading = {
-                    CarListHeaderIcon(
-                        id = R.drawable.ic_baseline_filter_list_24,
-                        onClicked =
-                        {
-                            viewModel.onEvent(CarListEvents.Toggled)
-                        },
-                    )
-                },
-                trailing = {
-                    CarListHeaderIcon(
-                        id = R.drawable.ic_baseline_shopping_cart_24,
-                        onClicked = {},
-                    )
+    Column() {
+        PageHeader(
+            header = "Car List",
+            leading = {
+                CarListHeaderIcon(
+                    id = R.drawable.ic_baseline_filter_list_24,
+                    onClicked =
+                    {
+                        viewModel.onEvent(CarListEvents.Toggled)
+                    },
+                )
+            },
+            trailing = {
+                CarListHeaderIcon(
+                    id = R.drawable.ic_baseline_shopping_cart_24,
+                    onClicked = {},
+                )
 
-                },
-                content = { if (viewModel.state.value.Toggled) FilterContent(viewModel) }
+            },
+            content = { 
+                if (viewModel.state.value.Toggled) {
+                    FilterContent(viewModel)
+                }
+            }
 
-            )
+        )
 
-        }
 
-        if (viewModel.state.value.carList.isEmpty()) {
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+//            stickyHeader {
+//
+//
+//            }
+
+            if (viewModel.state.value.carList.isEmpty()) {
+
+                item {
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
+                    {
+                        Text(text = "List is Empty", color = MyColors.primaryLight)
+                    }
+                }
+
+
+            } else {
+
+                items(viewModel.state.value.carList) {
+                    CarItem(it) { car ->
+                        navController.navigate(route = DashBoardRoutes.CarDetailsPage.route + "/${car.id}")
+                    }
+                }
+
+            }
+
+
+
+
 
             item {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
-                {
-                    Text(text = "List is Empty", color = MyColors.primaryLight)
-                }
-            }
-
-
-        } else {
-
-            items(viewModel.state.value.carList) {
-                CarItem(it) { car ->
-                    navController.navigate(route = DashBoardRoutes.CarDetailsPage.route + "/${car.id}")
-                }
+                Spacer(modifier = Modifier.size(100.dp))
             }
 
         }
-
-
-
-
-
-        item {
-            Spacer(modifier = Modifier.size(100.dp))
-        }
-
     }
+
+
+
+
 
 
 }

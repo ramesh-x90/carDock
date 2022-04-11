@@ -48,7 +48,7 @@ class CarDetailsViewModelImpl : ViewModel(){
 
                 CarBuyResults.Success -> {
                     getCar(state.value.id)
-                    event.onSuccess("Purchased Done")
+                    event.onSuccess("Purchase Done")
                 }
             }
         }
@@ -72,7 +72,8 @@ class CarDetailsViewModelImpl : ViewModel(){
                     seller = seller!!.name,
                     timestamp = car.timestamp,
                     price = car.price,
-                    id = car.id!!
+                    id = car.id!!,
+                    year = car.launchedYear
                 )
             }
         }

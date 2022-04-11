@@ -73,11 +73,16 @@ fun CarDetailsPage(navController: NavHostController, id: Long?) {
 
                         SimpleTextBox(
                             value = viewModel.state.value.model,
-                            label = "Brand",
+                            label = "Model",
                             modifier = modifier
                         )
 
                     }
+
+                    SimpleTextBox(
+                        value = viewModel.state.value.year,
+                        label = "Launched Year",
+                    )
 
                     SimpleTextBox(
                         value = viewModel.state.value.chassis_no,

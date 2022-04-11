@@ -1,12 +1,16 @@
 package com.example.carDock.presentation.login
 
 
+import android.util.DisplayMetrics
+import android.widget.Space
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -24,10 +28,13 @@ fun LoginScreen(navController: NavController) {
     val viewModel = AppModule.getViewModelServiceLocator().getUserLoginScreenViewModel()
 
     Surface(color = MyColors.primaryLight, modifier = Modifier.fillMaxSize()) {
+
+        val screenMetrics = LocalConfiguration.current
+        val screenHeight = screenMetrics.screenHeightDp
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceAround
         ) {
 
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -40,6 +47,9 @@ fun LoginScreen(navController: NavController) {
 
             }
 
+            Spacer(modifier = Modifier.weight(1f))
+
+
             LoginForm(viewModel,
                 onSuccess = {
                     MyToast(it).show()
@@ -50,9 +60,13 @@ fun LoginScreen(navController: NavController) {
                     MyToast(it).show()
                 }
             )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+
+
             //registration button
             val btnModifier = Modifier
-                .padding(top = 20.dp)
                 .fillMaxWidth(0.3f)
                 .shadow(elevation = 10.dp)
 
@@ -75,9 +89,11 @@ fun LoginScreen(navController: NavController) {
                 Text(text = "Developed By", color = MyColors.primaryText)
                 Text(text = AppModule.developerName, color = MyColors.secondaryLight)
             }
+            
 
 
         }
+
     }
 }
 

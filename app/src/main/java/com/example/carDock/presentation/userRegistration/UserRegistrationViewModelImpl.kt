@@ -93,7 +93,7 @@ class UserRegistrationViewModelImpl : ViewModel(), UserRegistrationViewModel {
 
             _coroutineLunched = true
 
-            delay(2000)
+            delay(1000)
 
             val regRes = UserUseCases.registerUser(
                 user = user

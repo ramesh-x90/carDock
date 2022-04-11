@@ -7,4 +7,5 @@ data class CarRegErrorState(
     val chassisNoError: Boolean = false,
     val engineNoError: Boolean = false,
     val fuelTypeError: Boolean = false,
+    val yearError: Boolean = false,
 )

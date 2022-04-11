@@ -12,6 +12,7 @@ data class CarRegState(
     val chassis_no: String = "",
     val category: String = "Car",
     val price: Long = -1,
+    val year: String = "",
 
     val brandList: List<String>? = emptyList(),
     val modelsList: List<String>? = emptyList(),
