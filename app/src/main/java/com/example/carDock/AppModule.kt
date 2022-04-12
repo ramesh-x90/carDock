@@ -20,7 +20,7 @@ object AppModule {
     private var brandRepo: BrandRepositoryImpl? = null
 
     fun setContext(app: Context) {
-        com.example.carDock.AppModule.instance = app
+        instance = app
     }
 
     fun getDSServiceLocator() = DataBaseServiceLocator

@@ -5,7 +5,6 @@ import com.example.carDock.domain.model.Car
 import com.example.carDock.domain.use_case.BrandUseCases
 import com.example.carDock.domain.util.CarRegErrors
 import com.example.carDock.domain.util.CarRegValidationResult
-import com.example.carDock.domain.util.FuelTypes
 import com.example.carDock.domain.util.Validators.isValidFuelType
 import com.example.carDock.domain.util.Validators.isValidYear
 

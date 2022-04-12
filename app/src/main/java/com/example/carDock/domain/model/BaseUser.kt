@@ -7,11 +7,4 @@ data class BaseUser
     val email: String,
     val contact_number: Int,
     val address: String
-) {
-    var x: Int = 0
-    get() = x
-    set(value) {
-        field = value
-    }
-
-}
+)

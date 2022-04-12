@@ -3,7 +3,6 @@ package com.example.carDock.domain.use_case
 
 import android.database.sqlite.SQLiteConstraintException
 import com.example.carDock.AppModule
-import com.example.carDock.debug.Log
 import com.example.carDock.domain.model.BaseUser
 import com.example.carDock.domain.model.Car
 import com.example.carDock.domain.model.User
