@@ -17,6 +17,8 @@ object UserUseCases {
 
     private val userRepository: UserRepository = AppModule.getDSRepoServiceLocator().getUserRepositoryImpl()
 
+
+
     suspend fun login(email: String, password: String): UserAuthResult {
         if (Validators.validateEmail(email).and(password.isNotBlank())) {
             val authUser = authenticate(email, password)
@@ -100,7 +102,6 @@ object UserUseCases {
 
     private suspend fun validatePurchase(id : Long, car : Car): Boolean {
         val bal = getUserBalance(id)!!
-        Log(bal.toString())
         return bal >= car.price
     }
 

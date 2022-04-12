@@ -1,10 +1,7 @@
 package com.example.carDock.presentation.login
 
 
-import android.util.DisplayMetrics
-import android.widget.Space
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment

@@ -75,13 +75,13 @@ class UserRegistrationViewModelImpl : ViewModel(), UserRegistrationViewModel {
 
         val user = createUserFromState()
 
-        if(user == null)
-        {
+        user ?: kotlin.run {
             event.onFailed("invalid data")
             invalidateForm(contactNum = true)
             return
-
         }
+
+
 
         viewModelScope.launch {
 

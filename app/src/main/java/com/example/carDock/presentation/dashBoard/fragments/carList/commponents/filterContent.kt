@@ -40,12 +40,12 @@ fun FilterContent(viewModel: CarListViewModel) {
 
                 val brandList = viewModel.filterState.value.brandList
 
-                if (brandList != null) {
+                brandList?.let {
                     Text(text = "Brands")
                     LazyRow(modifier = Modifier.fillMaxWidth())
                     {
 
-                        items(brandList) {
+                        items(it) {
 
                             val butColors = ButtonDefaults.buttonColors(
                                 backgroundColor = if (it == viewModel.filterState.value.filteredBrand) MyColors.primary else MyColors.secondary

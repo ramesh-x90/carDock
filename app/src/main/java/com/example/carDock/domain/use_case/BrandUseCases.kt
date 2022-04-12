@@ -21,8 +21,10 @@ object BrandUseCases {
         }
 
     fun isBrandExist(brand: String): Boolean {
-        if (getBrandModels(brand) == null) return false
-        return true
+
+        return getBrandModels(brand)?.let {
+            true } ?: false
+
     }
 
     fun isNotBrandExist(brand: String): Boolean = !isBrandExist(brand)
