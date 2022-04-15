@@ -62,10 +62,7 @@ class CarListViewModel : ViewModel() {
             ////////brand filter events
             CarListEvents.OnBrandReset -> {
                 _filterState.value = _filterState.value.copy(
-                    filteredBrand = null
-                )
-
-                _filterState.value.copy(
+                    filteredBrand = null,
                     modelList = emptyList()
                 )
 

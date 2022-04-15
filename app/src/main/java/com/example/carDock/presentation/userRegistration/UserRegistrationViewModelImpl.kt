@@ -27,7 +27,7 @@ class UserRegistrationViewModelImpl : ViewModel(), UserRegistrationViewModel {
 
         userRegErrorState.value = UserRegErrorState()
 
-        val action = when (event) {
+        when (event) {
             is UserRegistrationEvents.OnAddressChange -> {
                 userRegState.value = userRegState.value.copy(
                     address = event.data

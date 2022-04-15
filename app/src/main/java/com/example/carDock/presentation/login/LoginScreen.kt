@@ -26,13 +26,14 @@ fun LoginScreen(navController: NavController) {
 
     Surface(color = MyColors.primaryLight, modifier = Modifier.fillMaxSize()) {
 
-        val screenMetrics = LocalConfiguration.current
-        val screenHeight = screenMetrics.screenHeightDp
+//        val screenMetrics = LocalConfiguration.current
+//        val screenHeight = screenMetrics.screenHeightDp
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize(),
         ) {
+            Spacer(modifier = Modifier.weight(1f))
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(

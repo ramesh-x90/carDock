@@ -90,10 +90,10 @@ fun CustomTextField(
             if(keyBoardType == KeyboardType.Number)
             {
                 if (it.isDigitsOnly()) {
-                    onChange(it)
+                    onChange(it.trim())
                 }
             }else{
-                onChange(it)
+                onChange(it.trim())
             }
 
 
