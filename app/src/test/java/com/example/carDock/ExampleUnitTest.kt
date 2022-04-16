@@ -13,10 +13,10 @@ import org.junit.Test
 class ExampleUnitTest {
     @Test
     fun userValidationText() {
-        val a = "0701686043"
+        val a = "0707777777"
 
         val b = User(
-            password = "0701686043",
+            password = "0707777777",
             email = "ramesh@gmail.com",
             address =  "ramesh@gmail.com",
             contact_number = a.toInt(),
