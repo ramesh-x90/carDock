@@ -114,7 +114,7 @@ object CarUseCases {
 
 
     @Throws(exceptionClasses = [SoldCarException::class, InvalidCarException::class])
-    suspend fun byACar(id: Long) {
+    suspend fun buyACar(id: Long) {
         val car = getCarById(id)
 
         car?.let {

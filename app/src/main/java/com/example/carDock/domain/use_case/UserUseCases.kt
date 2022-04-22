@@ -72,7 +72,7 @@ object UserUseCases {
 
 
         try {
-            CarUseCases.byACar(id)
+            CarUseCases.buyACar(id)
             userRepository.deductBalance(buyer.id , car.price)
 
             val profit = car.price*70/100

@@ -11,6 +11,7 @@ import com.example.carDock.domain.model.Car
 import com.example.carDock.domain.use_case.BrandUseCases
 import com.example.carDock.domain.use_case.CarUseCases
 import com.example.carDock.domain.util.CarRegErrors
+import com.example.carDock.domain.util.Validators
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
@@ -104,6 +105,7 @@ class CarRegViewModelImpl : ViewModel(), CarRegViewModel {
             }
 
             is CarRegEvents.OnPriceChange -> {
+                Log(event.price)
 
                 if (event.price.isBlank()) {
                     _carRegFormState.value = _carRegFormState.value.copy(
@@ -112,22 +114,19 @@ class CarRegViewModelImpl : ViewModel(), CarRegViewModel {
                     return
                 }
 
-                event.price.isDigitsOnly().let {
-                    when (it) {
-                        true -> {
-                            try {
-                                _carRegFormState.value = _carRegFormState.value.copy(
-                                    price = event.price.toLong()
-                                )
-                            }catch (e : Exception)
-                            {
-
-                            }
-
-                        }
-                    }
+                if (!Validators.isPrice(event.price))
+                {
+                    return
                 }
 
+                try {
+                    _carRegFormState.value = _carRegFormState.value.copy(
+                        price = event.price.toLong()
+                    )
+                }catch (e : Exception)
+                {
+
+                }
             }
             is CarRegEvents.OnChassisNoChange -> {
                 _carRegFormState.value = _carRegFormState.value.copy(
